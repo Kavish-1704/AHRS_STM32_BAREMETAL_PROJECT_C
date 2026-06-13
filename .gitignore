@@ -1,0 +1,41 @@
+# ==========================================
+# macOS Hidden Files
+# ==========================================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ==========================================
+# STM32CubeIDE / Eclipse Build Folders
+# ==========================================
+Debug/
+Release/
+build/
+
+# ==========================================
+# Compiled Binaries & Object Files
+# ==========================================
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+*.map
+*.list
+*.su
+
+# ==========================================
+# IDE User Settings & Logs
+# ==========================================
+.metadata/
+.settings/
+*.launch
+*.log
+
+# ==========================================
+# VS Code (In case you use it for reading code)
+# ==========================================
+.vscode/
