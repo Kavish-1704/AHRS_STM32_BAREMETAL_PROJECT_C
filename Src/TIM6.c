@@ -30,7 +30,7 @@ float invSqrt(float x) {
 void TIM6_DAC_IRQHandler(){
     TIM6->SR &= ~(1<<0);
 
-    // Reading the raw data from the mpu 
+
     MPU6050_Data raw_data;
     MPU6050_ReadRawData(&raw_data);
 
