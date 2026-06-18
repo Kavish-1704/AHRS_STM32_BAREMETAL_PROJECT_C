@@ -34,6 +34,21 @@ This project completely bypasses the STM32 HAL/LL libraries, relying entirely on
 * **Context Protection:** Safe memory transfer of volatile quaternions from the interrupt context to the main loop using `__disable_irq()` to prevent data tearing.
 * **macOS / UNIX Serial Compatibility:** Telemetry formatting optimized for UNIX `screen` output and Python `pyserial` ingestion.
 
+## ⚠️ Challenges Faced & Solutions
+
+Building a bare-metal pipeline without HAL abstracts away the safety nets, exposing raw silicon quirks. Here are the key technical hurdles overcome during development:
+
+* **The Cortex-M4 FPU HardFault Trap:** * *Challenge:* The STM32F446RE features a hardware Floating-Point Unit (FPU), but it is disabled by default upon reset. When the Mahony filter attempted to execute float-heavy trigonometric operations (`sqrtf`, `asinf`), the core threw a fatal HardFault exception, instantly freezing the microcontroller.
+  * *Solution:* Explicitly activated the CP10 and CP11 coprocessors by setting the appropriate bits in the System Control Block (`SCB->CPACR`) at the very first line of `main()`, unlocking hardware-accelerated float math.
+* **Repeated Start & Register Clearing Lockups:** * *Challenge:* When executing multi-byte burst reads (fetching 14 bytes of raw Accel/Gyro data), the I2C bus would permanently hang if the `ADDR` flag wasn't cleared at the exact right nanosecond before sending the Repeated Start condition.
+  * *Solution:* Implemented a bulletproof, register-level sequence that precisely reads `SR1` and `SR2` to clear flags, and manually disables the `ACK` bit exactly one byte before the `STOP` condition is generated.
+* **Open-Drain Bus Paralysis:** * *Challenge:* The I2C bus remained completely silent (`SR1: 0`, `SR2: 0`) because I2C is an open-drain protocol and the lines were sitting at 0V, tricking the STM32 into thinking the bus was perpetually busy.
+  * *Solution:* Explicitly configured the `GPIOB->PUPDR` registers to engage the STM32's internal pull-up resistors on the SCL and SDA pins, pulling the idle bus up to 3.3V.
+* **Context Tearing in the Mahony Pipeline:** * *Challenge:* The 100Hz `TIM6` hardware interrupt was updating the global quaternion array at the exact moment the main loop was trying to read it for Euler angle conversion, leading to corrupted trigonometric math.
+  * *Solution:* Wrapped the quaternion array copy operation inside the main loop with `__disable_irq()` and `__enable_irq()` to briefly pause the interrupt, ensuring thread-safe data transfers without missing a clock cycle.
+ 
+
+    
 ## 🚀 Getting Started
 
 ### Prerequisites
