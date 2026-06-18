@@ -5,7 +5,7 @@
 ![Sensor](https://img.shields.io/badge/Sensor-MPU6050-green)
 ![Filter](https://img.shields.io/badge/Filter-Mahony%20AHRS-red)
 
-![AHRS Demo GIF]([link_to_your_gif.gif](https://github.com/Kavish-1704/AHRS_STM32_BAREMETAL_PROJECT_C/issues/1#issue-4690152315))
+<video src="https://github.com/user-attachments/assets/YOUR-VIDEO-LINK.mp4" autoplay loop muted playsinline width="100%"></video>
 *(Caption: Real-time Roll, Pitch, and Yaw telemetry calculated via Mahony AHRS and 100Hz hardware interrupts.)*
 
 A robust, from-scratch embedded C project...
