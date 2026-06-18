@@ -71,3 +71,38 @@ ls /dev/tty.usb*
 
 # Launch the screen monitor
 screen /dev/tty.usbmodemXXXXX 115200
+
+#Hit the black reset button
+```
+## 🚀 Future Scope & Strategic Roadmap
+
+This bare-metal AHRS foundation serves as the core sensory unit for more complex, industrial-grade autonomous systems. The development roadmap is structured into the following strategic phases:
+
+### Phase 1: Hardware Hardening & PCB Design
+* **Objective:** Transition from a breadboard prototype to a robust, industrial-grade hardware platform.
+* **Action Items:** * Design a custom 4-layer to 8-layer PCB to minimize EMI, ensure signal integrity for the high-speed I2C lines, and optimize the ground plane.
+  * Integrate the STM32F446RE footprint directly onto the board alongside the MPU6050, complete with onboard buck converters and power regulation.
+
+### Phase 2: Deterministic Task Management (RTOS)
+* **Objective:** Move beyond bare-metal hardware timers to a scalable, multi-tasking software architecture.
+* **Action Items:**
+  * Port the current super-loop and interrupt architecture to FreeRTOS.
+  * Separate the I2C polling, Mahony filter calculations, and UART telemetry into dedicated, priority-managed tasks, utilizing mutexes to protect the quaternion data arrays.
+
+### Phase 3: Autonomous Systems & SLAM
+* **Objective:** Elevate the module from a passive sensor to an active node in a robotics ecosystem.
+* **Action Items:**
+  * Translate the C telemetry pipeline into a **micro-ROS** node.
+  * Publish the `sensor_msgs/Imu` topic over a serial transport to be ingested by a larger ROS 2 SLAM (Simultaneous Localization and Mapping) architecture for smart robots.
+
+### Phase 4: Edge Intelligence (TinyML)
+* **Objective:** Execute predictive models directly on the STM32 silicon to reduce telemetry bandwidth.
+* **Action Items:**
+  * Deploy a TinyML model on the microcontroller to process the raw IMU tensor data locally.
+  * Implement real-time anomaly detection (e.g., detecting specific vibration signatures or mechanical wear patterns) directly at the edge.
+
+### Phase 5: Scaled Infrastructure Deployment
+* **Objective:** Package the hardware for large-scale environmental or industrial monitoring.
+* **Action Items:**
+  * Integrate additional acoustic or cross-correlation sensors alongside the IMU.
+  * Develop a communication protocol to allow multiple nodes to sync, forming the backbone of automated feedback systems for campus-level infrastructure tracking or pipeline monitoring.
