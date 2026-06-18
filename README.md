@@ -5,6 +5,12 @@
 ![Sensor](https://img.shields.io/badge/Sensor-MPU6050-green)
 ![Filter](https://img.shields.io/badge/Filter-Mahony%20AHRS-red)
 
+![AHRS Demo GIF](link_to_your_gif.gif)
+*(Caption: Real-time Roll, Pitch, and Yaw telemetry calculated via Mahony AHRS and 100Hz hardware interrupts.)*
+
+A robust, from-scratch embedded C project...
+
+
 A robust, from-scratch embedded C project that implements an Attitude and Heading Reference System (AHRS) using the STM32F446RE microcontroller and an MPU6050 6-DOF IMU. 
 
 This project completely bypasses the STM32 HAL/LL libraries, relying entirely on direct register-level manipulation to establish a custom I2C engine, hardware timers, and UART telemetry. It extracts raw accelerometer and gyroscope data, processes it through a Mahony filter via a strictly timed hardware interrupt, and streams real-time Roll, Pitch, and Yaw Euler angles to a host machine.
