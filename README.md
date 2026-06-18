@@ -106,3 +106,19 @@ This bare-metal AHRS foundation serves as the core sensory unit for more complex
 * **Action Items:**
   * Integrate additional acoustic or cross-correlation sensors alongside the IMU.
   * Develop a communication protocol to allow multiple nodes to sync, forming the backbone of automated feedback systems for campus-level infrastructure tracking or pipeline monitoring.
+
+---
+
+## 👨‍💻 About the Author
+
+**Kavish Sharma** *B.Tech in Electronics and Instrumentation Engineering | NIT Silchar*
+
+Passionate about bare-metal embedded systems, industrial PCB design, and building the core sensory architecture for autonomous robotics. 
+
+📫 **Let's Connect:**
+* **GitHub:** [@Kavish-1704](https://github.com/Kavish-1704)
+* **LinkedIn:** [(https://www.linkedin.com/in/kavish-sharma-724168314/)]
+* **Email:** [kavishsharma5757@gmail.com]
+
+---
+*If you found this project interesting or helpful, feel free to drop a ⭐ on the repository!*
